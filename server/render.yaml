@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: car-dealership-django
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn capstone_project.wsgi
+    envVars:
+      - key: DEBUG
+        value: true
+      - key: SECRET_KEY
+        value: your-production-secret-key
+    preDeployCommand: python manage.py migrate
