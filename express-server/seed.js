@@ -1,12 +1,11 @@
-const mongoose = require('mongoose');
-const Dealer = require('./models/Dealer');
-const Review = require('./models/Review');
-require('dotenv').config();
+const mongoose = require("mongoose");
+const Dealer = require("./models/Dealer");
+const Review = require("./models/Review");
+require("dotenv").config();
 
-// Import DB connection
-const connectDB = require('./db');
+const connectDB = require("./db");
 
-// Sample dealer data
+// Additional dealers
 const dealerData = [
   {
     name: "Sunshine Auto Group",
@@ -62,114 +61,153 @@ const dealerData = [
     phone: "(316) 555-1234",
     website: "www.sunflowerauto.com",
   },
+  {
+    name: "Lakeside Motors",
+    city: "Chicago",
+    state: "IL",
+    address: "200 Lakeside Drive",
+    zip: "60601",
+    phone: "(312) 555-7788",
+    website: "www.lakesidemotors.com",
+  },
+  {
+    name: "Desert Auto Plaza",
+    city: "Phoenix",
+    state: "AZ",
+    address: "999 Desert Ave",
+    zip: "85001",
+    phone: "(602) 555-3322",
+    website: "www.desertautoplaza.com",
+  },
 ];
 
-// Sample review texts with sentiments
+// Additional reviews
 const reviewData = [
   {
-    comment: 'Great service and friendly staff. They made buying a car so easy!',
+    comment:
+      "Great service and friendly staff. They made buying a car so easy!",
     rating: 5,
-    sentiment: 'positive'
+    sentiment: "positive",
   },
   {
-    comment: 'The salesperson was very knowledgeable and helped me find the perfect car for my needs.',
+    comment:
+      "The salesperson was very knowledgeable and helped me find the perfect car for my needs.",
     rating: 5,
-    sentiment: 'positive'
+    sentiment: "positive",
   },
   {
-    comment: 'Decent selection of cars but prices were a bit high compared to other dealerships.',
+    comment:
+      "Decent selection of cars but prices were a bit high compared to other dealerships.",
     rating: 3,
-    sentiment: 'neutral'
+    sentiment: "neutral",
   },
   {
-    comment: 'Terrible experience. The car had issues right after I bought it and they refused to help.',
+    comment:
+      "Terrible experience. The car had issues right after I bought it and they refused to help.",
     rating: 1,
-    sentiment: 'negative'
+    sentiment: "negative",
   },
   {
-    comment: 'Average dealership. Nothing special but got the job done.',
+    comment: "Average dealership. Nothing special but got the job done.",
     rating: 3,
-    sentiment: 'neutral'
+    sentiment: "neutral",
   },
   {
-    comment: 'I love my new car! The financing options were great and the process was smooth.',
+    comment:
+      "I love my new car! The financing options were great and the process was smooth.",
     rating: 5,
-    sentiment: 'positive'
+    sentiment: "positive",
   },
   {
-    comment: 'Waited for hours to see a salesperson. Very disappointed with the customer service.',
+    comment:
+      "Waited for hours to see a salesperson. Very disappointed with the customer service.",
     rating: 2,
-    sentiment: 'negative'
+    sentiment: "negative",
   },
   {
-    comment: 'The car was in excellent condition as advertised. Happy with my purchase.',
+    comment:
+      "The car was in excellent condition as advertised. Happy with my purchase.",
     rating: 4,
-    sentiment: 'positive'
-  }
+    sentiment: "positive",
+  },
+  {
+    comment: "The manager was rude and dismissive. Will not be coming back.",
+    rating: 1,
+    sentiment: "negative",
+  },
+  {
+    comment: "Quick paperwork and delivery. I was out of the lot in 2 hours.",
+    rating: 4,
+    sentiment: "positive",
+  },
+  {
+    comment: "They tried to upsell unnecessary features. Felt a bit pushy.",
+    rating: 2,
+    sentiment: "negative",
+  },
 ];
 
-// Reviewer names
+// Extended reviewer list
 const reviewers = [
-  'John Smith',
-  'Emily Johnson',
-  'Michael Brown',
-  'Sarah Davis',
-  'David Wilson',
-  'Jessica Martinez',
-  'Robert Taylor',
-  'Jennifer Anderson'
+  "John Smith",
+  "Emily Johnson",
+  "Michael Brown",
+  "Sarah Davis",
+  "David Wilson",
+  "Jessica Martinez",
+  "Robert Taylor",
+  "Jennifer Anderson",
+  "Brian Thomas",
+  "Rachel Moore",
+  "Kevin Lee",
+  "Laura Thompson",
 ];
 
 // Seed function
 const seedDatabase = async () => {
   try {
-    // Connect to MongoDB
     await connectDB();
-    
-    // Clear existing data
+
     await Dealer.deleteMany({});
     await Review.deleteMany({});
-    
-    console.log('Previous data cleared');
-    
-    // Insert dealers
+    console.log("Previous data cleared");
+
     const dealers = await Dealer.insertMany(dealerData);
     console.log(`${dealers.length} dealers inserted`);
-    
-    // Create reviews for each dealer
+
     const reviews = [];
-    
-    dealers.forEach(dealer => {
-      // Add 3-5 reviews per dealer
+
+    dealers.forEach((dealer) => {
       const numReviews = Math.floor(Math.random() * 3) + 3;
-      
+
       for (let i = 0; i < numReviews; i++) {
-        const randomReviewIndex = Math.floor(Math.random() * reviewData.length);
-        const randomReviewerIndex = Math.floor(Math.random() * reviewers.length);
-        
+        const reviewIndex = Math.floor(Math.random() * reviewData.length);
+        const reviewerIndex = Math.floor(Math.random() * reviewers.length);
+
         const review = new Review({
           dealerId: dealer._id,
-          reviewer: reviewers[randomReviewerIndex],
-          rating: reviewData[randomReviewIndex].rating,
-          comment: reviewData[randomReviewIndex].comment,
-          sentiment: reviewData[randomReviewIndex].sentiment,
-          date: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000) // Random date within last 30 days
+          reviewer: reviewers[reviewerIndex],
+          rating: reviewData[reviewIndex].rating,
+          comment: reviewData[reviewIndex].comment,
+          sentiment: reviewData[reviewIndex].sentiment,
+          date: new Date(
+            Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000
+          ),
         });
-        
+
         reviews.push(review);
       }
     });
-    
+
     await Review.insertMany(reviews);
     console.log(`${reviews.length} reviews inserted`);
-    
-    console.log('Database seeded successfully!');
+
+    console.log("✅ Database seeded successfully!");
     process.exit(0);
   } catch (error) {
-    console.error('Error seeding database:', error);
+    console.error("❌ Error seeding database:", error);
     process.exit(1);
   }
 };
 
-// Run the seed function
 seedDatabase();
