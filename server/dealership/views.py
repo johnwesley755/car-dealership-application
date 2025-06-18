@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from textblob import TextBlob
 from django.contrib.auth import logout
+from django.shortcuts import redirect
 # API URL from Django settings
 API_URL = settings.EXPRESS_API_URL
 
