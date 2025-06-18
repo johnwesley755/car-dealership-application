@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Car Dealership Reviews{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-bold">Car Dealership Reviews</div>
+                <div class="space-x-4">
+                    <a href="{% url 'home' %}" class="hover:text-blue-200">Home</a>
+                    <a href="{% url 'about' %}" class="hover:text-blue-200">About</a>
+                    <a href="{% url 'contact' %}" class="hover:text-blue-200">Contact</a>
+                    {% if user.is_authenticated %}
+                        <span class="text-blue-200">Hello, {{ user.username }}</span>
+                   <a href="{% url 'logout' %}" class="text-red-600 hover:underline">Logout</a>
+
+                    {% else %}
+                        <a href="{% url 'login' %}" class="hover:text-blue-200">Login</a>
+                        <a href="{% url 'signup' %}" class="hover:text-blue-200">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-blue-800 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-xl font-bold">Car Dealership Reviews</h3>
+                    <p>Your trusted source for honest dealer reviews</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="hover:text-blue-300"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <p>&copy; {% now "Y" %} Car Dealership Reviews. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

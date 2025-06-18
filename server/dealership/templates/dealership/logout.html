@@ -1,0 +1,20 @@
+{% extends 'dealership/base.html' %}
+
+{% block title %}Logged Out - Car Dealership Reviews{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 text-center">
+    <div class="text-green-600 mb-4">
+        <i class="fas fa-check-circle text-5xl"></i>
+    </div>
+    
+    <h1 class="text-2xl font-bold text-blue-800 mb-4">Successfully Logged Out</h1>
+    
+    <p class="text-gray-700 mb-6">You have been successfully logged out of your account. Thank you for using Car Dealership Reviews!</p>
+    
+    <div class="flex justify-center space-x-4">
+        <a href="{% url 'login' %}" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Log In Again</a>
+        <a href="{% url 'home' %}" class="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Home</a>
+    </div>
+</div>
+{% endblock %}
