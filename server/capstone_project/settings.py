@@ -11,7 +11,7 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Change this line
-DEBUG = True  # Temporarily set to True for debugging
+DEBUG = False  # Temporarily set to True for debugging
 
 ALLOWED_HOSTS = [
     'localhost',

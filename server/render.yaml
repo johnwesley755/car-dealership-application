@@ -3,14 +3,12 @@ services:
     name: car-dealership-django
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: "gunicorn capstone_project.wsgi:application"
+    startCommand: gunicorn capstone_project.wsgi:application
+    preDeployCommand: python manage.py migrate
     envVars:
       - key: DEBUG
-        value: true
+        value: "False"  # Set to "True" only for testing, not in production
       - key: SECRET_KEY
         value: your-production-secret-key
       - key: EXPRESS_API_URL
-        value: https://car-dealership-express-api.onrender.com/
-      - key: RENDER_API_URL
-        value: https://car-dealership-express-api.onrender.com/
-    preDeployCommand: python manage.py migrate
+        value: https://car-dealership-express-api.onrender.com
