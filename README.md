@@ -174,13 +174,3 @@ Aspiring Web Developer & UI/UX Designer
 
 ---
 
-## 📄 License
-
-This project is for educational purposes only. 🚀
-
-```
-
----
-
-Let me know if you'd like this README exported as a file or want visuals like diagrams using Mermaid syntax or a PNG-based architecture!
-```
