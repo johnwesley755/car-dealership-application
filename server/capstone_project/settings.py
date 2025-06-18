@@ -1,16 +1,18 @@
 import os
 from pathlib import Path
-
+import dotenv
+dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-your-secret-key-here'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-secret-key')
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app', '.render.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app', '.render.com', 'https://car-dealership-express-api.onrender.com/']
 
 # Application definition
 INSTALLED_APPS = [
@@ -107,4 +109,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/logout-success/'
 
 # Express API URL
-EXPRESS_API_URL = os.environ.get('EXPRESS_API_URL', 'http://localhost:3000')
+EXPRESS_API_URL = os.environ.get('EXPRESS_API_URL', 'https://car-dealership-express-api.onrender.com/')
+
+# Render API URL
+RENDER_API_URL = os.environ.get('RENDER_API_URL', 'https://car-dealership-express-api.onrender.com/')
