@@ -1,176 +1,150 @@
-# 🚗  Car Dealership Web Application
+# 🚗 Car Dealership Web Application
 
-> A full-stack web application built with **Django** for the frontend and **Express.js + MongoDB** for the backend. This project allows users to view car dealerships, explore details, add reviews, and more.
+> A full-stack car dealership review platform built using **Django**, **Express.js**, and **MongoDB**. This application allows users to browse dealership listings, read and write reviews, and interact with a sleek and responsive interface.
 
----
+🌐 **Live Demo**
 
-## 🌐 Tech Stack
+Frontend (Django): [https://car-dealership-application.onrender.com](https://car-dealership-application.onrender.com)
 
-| Frontend | Backend (API) | Database |
-|----------|----------------|----------|
-| ![Django](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white) | ![Express](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white) | ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat&logo=mongodb&logoColor=white) |
+Backend (Express API): [https://car-dealership-express-api.onrender.com](https://car-dealership-express-api.onrender.com)
 
 ---
 
-## 📊 Application Flow
+## 🧰 Tech Stack
 
-```
-
-🔵 User visits Django frontend
-|
-├── 🏠 Home page
-├── 🧾 About / Contact / Login / Signup
-└── 🚘 Dealership List
-|
-▼
-🔍 Dealer Detail View
-|
-▼
-✍️ Add Review (via Django Form)
-|
-▼
-🛰️ Sends request to Express API ➝ 📦 MongoDB
-|
-▼
-📡 Receives data from API and renders via Django Templates
-
-```
+| Frontend                                                                                       | Backend                                                                                                 | Database                                                                                          |
+| ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| ![Django](https://img.shields.io/badge/Django-092E20?style=flat\&logo=django\&logoColor=white) | ![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat\&logo=express\&logoColor=white) | ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat\&logo=mongodb\&logoColor=white) |
 
 ---
 
-## 🏗️ Architecture Diagram
+## 📝 About the Project
 
-```
+This project simulates a **Car Dealership Review System**, where users can:
+
+* 🔍 Explore a list of car dealerships.
+* 📄 View dealership details.
+* ✍️ Submit reviews and ratings.
+* 🔐 Register and log in to post reviews.
+* 💬 Interact with a seamless and clean UI.
+
+The frontend is handled by **Django**, which fetches data from a separately hosted **Express API**. This API interacts with a **MongoDB Atlas** database to store dealership and review data.
+
+---
+
+## ⚙️ Architecture Overview
+
+```plaintext
             ┌────────────────────────────┐
-            │         Client (User)      │
+            │        🌐 Client (User)     │
             └────────────┬───────────────┘
                          │
                          ▼
-            ┌────────────────────────────┐
-            │   Django Frontend (8000)   │
-            │  - Templates & Static UI   │
-            │  - Forms & Auth Handling   │
-            └────────────┬───────────────┘
-                         │
-                         ▼
-          Sends HTTP Requests to Express API
-                         │
-                         ▼
-            ┌────────────────────────────┐
-            │  Express Backend (3000)     │
-            │  - Dealers API             │
-            │  - Reviews API             │
-            └────────────┬───────────────┘
-                         │
-                         ▼
-            ┌────────────────────────────┐
-            │     MongoDB (Database)     │
-            │  - Dealers Collection      │
-            │  - Reviews Collection      │
-            └────────────────────────────┘
+        ┌────────────────────────────────────┐
+        │     Django Frontend (Render)       │
+        │  - Template Rendering              │
+        │  - Auth (Signup/Login)             │
+        │  - Forms, Pages, UI                │
+        └────────────┬───────────────────────┘
+                     │ Fetches from API
+                     ▼
+        ┌────────────────────────────────────┐
+        │    Express Backend (Render)        │
+        │  - Dealers & Reviews API           │
+        └────────────┬───────────────────────┘
+                     │
+                     ▼
+        ┌────────────────────────────────────┐
+        │        MongoDB Atlas Database       │
+        │  - Dealers Collection               │
+        │  - Reviews Collection               │
+        └────────────────────────────────────┘
 ```
-
-
 
 ---
 
-## 🔧 Project Structure
+## 📁 Project Structure
 
-```
-
+```plaintext
 capstone-project/
-├── express-server/        # Node.js + MongoDB microservice
-│   ├── routes/            # API endpoints
-│   ├── models/            # Mongoose schemas
-│   ├── db.js              # MongoDB connection
-│   ├── seed.js            # Sample data
-│   └── server.js
+├── express-server/              # Express.js backend
+│   ├── routes/                  # API routes
+│   ├── models/                  # Mongoose models
+│   ├── db.js                    # DB connection
+│   ├── seed.js                  # Sample data script
+│   └── server.js                # Entry point
 │
-├── server/                # Django Project
-│   ├── capstone\_project/  # Settings, URLs, WSGI
-│   ├── dealership/        # App logic, views, templates
-│   └── static/            # CSS, JS, images
+├── server/                      # Django frontend
+│   ├── capstone_project/        # Settings, URLs
+│   ├── dealership/              # Views, models, templates
+│   └── static/                  # CSS, JS, images
 │
-└── .github/
-└── workflows/         # CI/CD workflow for Django
-
-````
+└── .github/workflows/           # CI/CD workflows
+```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started Locally
 
-### 1️⃣ Clone the repo
-
-```bash
-git clone https://github.com/yourusername/capstone-project.git
-cd capstone-project
-````
-
----
-
-### 2️⃣ Backend: Express Setup
+### 🔧 Backend Setup (Express.js)
 
 ```bash
 cd express-server
 npm install
-node seed.js      # Populate MongoDB with test data
-node server.js    # Starts API at http://localhost:3000
+node seed.js         # Seeds sample data to MongoDB
+node server.js       # Runs at http://localhost:3000
 ```
 
----
-
-### 3️⃣ Frontend: Django Setup
+### 🌍 Frontend Setup (Django)
 
 ```bash
 cd ../server
 python -m venv venv
-venv\Scripts\activate        # or source venv/bin/activate
+source venv/bin/activate        # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
 
 python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver   # Starts frontend at http://localhost:8000
+python manage.py runserver      # Runs at http://localhost:8000
 ```
 
 ---
 
-## 👨‍💻 Features
+## 🧪 Features
 
-* 🔒 Secure authentication (signup/login)
-* 📍 View all available car dealerships
-* 📝 View detailed info and add reviews
-* 🌍 Connects Django to external API
-* 💬 Clean and intuitive UI
-
----
-
-## 📸 Screenshots
-
-> Add relevant screenshots from your app:
-
-* Home Page
-* Dealer Details
-* Add Review Form
-* Express API JSON Response
+* 🔒 User Authentication (Login, Signup, Logout)
+* 🗂 View All Car Dealerships
+* 📖 View Dealership Details and Past Reviews
+* ✍️ Add New Reviews via Form (POST to Express API)
+* 🛰 Integration with External REST API
+* 🎨 Responsive TailwindCSS UI
 
 ---
 
-## ✅ Future Improvements
+## 📦 Deployment Details
 
-* 📲 Add mobile responsiveness
-* 💡 Add filtering and search options for dealerships
-* 📦 Store reviews with user IDs
-* ⚙️ Admin dashboard
+| Component       | Platform | URL                                                                                                |
+| --------------- | -------- | -------------------------------------------------------------------------------------------------- |
+| Django Frontend | Render   | [https://car-dealership-application.onrender.com](https://car-dealership-application.onrender.com) |
+| Express API     | Render   | [https://car-dealership-express-api.onrender.com](https://car-dealership-express-api.onrender.com) |
+| MongoDB         | Atlas    | Private                                                                                            |
 
 ---
 
-## 👨‍🏫 Developed By
+## 🛠️ Future Improvements
+
+* 📱 Mobile Responsiveness
+* 🔍 Add search & filter for dealerships
+* 📊 Admin dashboard for managing reviews
+* ⭐️ Rating system visualization (e.g. star icons)
+* 📬 Email verification and reset password
+
+---
+
+## 👨‍💻 Developed By
 
 **John Wesley**
 Aspiring Web Developer & UI/UX Designer
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat\&logo=linkedin)](https://linkedin.com/in/john-wesley-6707ab258)
 📧 [johnwesley8113@gmail.com](mailto:johnwesley8113@gmail.com)
-
----
+🔗 [LinkedIn](https://linkedin.com/in/john-wesley-6707ab258)
 
