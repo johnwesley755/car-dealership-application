@@ -12,7 +12,14 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.railway.app', '.render.com', 'https://car-dealership-express-api.onrender.com/']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.railway.app',
+    '.render.com',
+    'car-dealership-application.onrender.com'  # ✅ Add this line
+]
+
 
 # Application definition
 INSTALLED_APPS = [
