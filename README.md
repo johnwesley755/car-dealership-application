@@ -34,33 +34,40 @@ The frontend is handled by **Django**, which fetches data from a separately host
 
 ## ⚙️ Architecture Overview
 
-```plaintext
-            ┌────────────────────────────┐
-            │        🌐 Client (User)     │
-            └────────────┬───────────────┘
-                         │
-                         ▼
-        ┌────────────────────────────────────┐
-        │     Django Frontend (Render)       │
-        │  - Template Rendering              │
-        │  - Auth (Signup/Login)             │
-        │  - Forms, Pages, UI                │
-        └────────────┬───────────────────────┘
-                     │ Fetches from API
-                     ▼
-        ┌────────────────────────────────────┐
-        │    Express Backend (Render)        │
-        │  - Dealers & Reviews API           │
-        └────────────┬───────────────────────┘
-                     │
-                     ▼
-        ┌────────────────────────────────────┐
-        │        MongoDB Atlas Database       │
-        │  - Dealers Collection               │
-        │  - Reviews Collection               │
-        └────────────────────────────────────┘
-```
+```mermaid
+flowchart TD
+    %% User Interaction
+    A[👤 User Browser]
 
+    %% Django Frontend Flow
+    A --> B[🌐 Django Frontend]
+    B --> B1[🏠 Home Page]
+    B --> B2[🔐 Login / 🔓 Signup]
+    B --> B3[🚘 Dealership List View]
+    B3 --> B4[📡 Fetch Dealerships from API]
+    B --> B5[📝 Add Review Form]
+    B5 --> B6[📤 Submit Review to API]
+
+    %% Express API Layer
+    B4 --> C1[🚀 Express API - GET /dealers]
+    B6 --> C2[🚀 Express API - POST /review]
+
+    %% MongoDB Database
+    C1 --> D1[🗃️ MongoDB - Dealers Collection]
+    C2 --> D2[🗃️ MongoDB - Reviews Collection]
+
+    %% Authentication System
+    B2 --> E[🔒 Django Auth SQLite]
+    E --> E1[📑 Session Table]
+    E --> E2[👥 Users Table]
+
+    %% Deployment Infrastructure
+    B --> F1[☁️ Render - Django Frontend]
+    C1 --> F2[☁️ Render - Express Backend]
+
+
+
+```
 ---
 
 ## 📁 Project Structure
