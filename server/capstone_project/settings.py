@@ -117,5 +117,4 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/logout-success/'
 
 # Express API URL
-EXPRESS_API_URL = os.environ.get('EXPRESS_API_URL', 'https://car-dealership-express-api.onrender.com/')
-RENDER_API_URL = os.environ.get('RENDER_API_URL', 'https://car-dealership-express-api.onrender.com/')
+EXPRESS_API_URL = os.environ.get('EXPRESS_API_URL', 'http://localhost:3000')
