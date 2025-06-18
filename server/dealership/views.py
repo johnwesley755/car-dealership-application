@@ -9,6 +9,7 @@ from django.conf import settings
 from textblob import TextBlob
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+
 # API URL from Django settings
 API_URL = settings.EXPRESS_API_URL
 
@@ -24,17 +25,28 @@ def custom_logout(request):
     logout(request)
     return redirect('logout_success')
 def home(request):
+    selected_state = request.GET.get('state')
+    dealers = []
+    all_states = []
+
     try:
         response = requests.get(f"{API_URL}/dealers")
-        dealers_data = response.json()
-        
-        # Normalize dealer ID
-        dealers = [Dealer(data) for data in dealers_data]
-    except requests.RequestException:
-        dealers = []
-    
-    return render(request, 'dealership/home.html', {'dealers': dealers})
+        if response.status_code == 200:
+            dealers_data = response.json()
+            if selected_state:
+                dealers_data = [d for d in dealers_data if d.get('state') == selected_state]
+            dealers = [Dealer(data) for data in dealers_data]
 
+            # Extract unique states for dropdown
+            all_states = sorted(set(d.get('state') for d in response.json() if d.get('state')))
+    except requests.RequestException as e:
+        print("Error fetching dealers:", e)
+
+    return render(request, 'dealership/home.html', {
+        'dealers': dealers,
+        'states': all_states,
+        'selected_state': selected_state
+    })
 def about(request):
     return render(request, 'dealership/about.html')
 

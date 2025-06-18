@@ -9,4 +9,8 @@ services:
         value: true
       - key: SECRET_KEY
         value: your-production-secret-key
+      - key: EXPRESS_API_URL
+        value: https://car-dealership-express-api.onrender.com/
+      - key: RENDER_API_URL
+        value: https://car-dealership-express-api.onrender.com/
     preDeployCommand: python manage.py migrate

@@ -10,7 +10,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'fallback-secret-key')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# Change this line
+DEBUG = True  # Temporarily set to True for debugging
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -117,6 +118,4 @@ LOGOUT_REDIRECT_URL = '/logout-success/'
 
 # Express API URL
 EXPRESS_API_URL = os.environ.get('EXPRESS_API_URL', 'https://car-dealership-express-api.onrender.com/')
-
-# Render API URL
 RENDER_API_URL = os.environ.get('RENDER_API_URL', 'https://car-dealership-express-api.onrender.com/')
