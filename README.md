@@ -144,7 +144,10 @@ python manage.py runserver      # Runs at http://localhost:8000
 ## 👨‍💻 Developed By
 
 **John Wesley**
-Aspiring Web Developer & UI/UX Designer
+
+Full Stack Web Developer & UI/UX Designer
+
 📧 [johnwesley8113@gmail.com](mailto:johnwesley8113@gmail.com)
+
 🔗 [LinkedIn](https://linkedin.com/in/john-wesley-6707ab258)
 
